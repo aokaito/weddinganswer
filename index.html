@@ -77,9 +77,10 @@
                   <div style="font-size:11px; font-weight:600; color:#e89e95; letter-spacing:0.16em; margin-bottom:10px;">ANSWER {{ p.tag1 }}</div>
                   <div style="font-size:26px; font-weight:700; color:#8a7468; letter-spacing:0.12em; line-height:1.5; white-space:pre-line;">{{ p.answer1 }}</div>
                   <sc-if value="{{ p.hasImg1 }}" hint-placeholder-val="{{ false }}">
-                    <div style="background:#fffdf9; border:1px solid #f0e0d8; border-radius:10px; padding:10px; margin-top:14px;">
+                    <a href="{{ p.img1 }}" target="_blank" rel="noopener" style="display:block; text-decoration:none; background:#fffdf9; border:1px solid #f0e0d8; border-radius:10px; padding:10px 10px 6px; margin-top:14px;">
                       <div style="width:{{ p.imgWidth1 }}; margin:0 auto; aspect-ratio:{{ p.imgRatio1 }}; border-radius:6px; background-image:url('{{ p.img1 }}'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
-                    </div>
+                      <div style="font-size:11px; color:#c9a99c; letter-spacing:0.08em; margin-top:6px;">タップで拡大</div>
+                    </a>
                   </sc-if>
                   <sc-if value="{{ p.hasNote1 }}" hint-placeholder-val="{{ false }}">
                     <div style="width:32px; height:1px; background:#e89e95; opacity:0.5; margin:14px auto 12px;"></div>
@@ -98,9 +99,10 @@
                   <div style="font-size:11px; font-weight:600; color:#d98b81; letter-spacing:0.16em; margin-bottom:10px;">ANSWER {{ p.tag2 }}</div>
                   <div style="font-size:26px; font-weight:700; color:#8a7468; letter-spacing:0.12em; line-height:1.5; white-space:pre-line;">{{ p.answer2 }}</div>
                   <sc-if value="{{ p.hasImg2 }}" hint-placeholder-val="{{ false }}">
-                    <div style="background:#fffdf9; border:1px solid #f0e0d8; border-radius:10px; padding:10px; margin-top:14px;">
+                    <a href="{{ p.img2 }}" target="_blank" rel="noopener" style="display:block; text-decoration:none; background:#fffdf9; border:1px solid #f0e0d8; border-radius:10px; padding:10px 10px 6px; margin-top:14px;">
                       <div style="width:{{ p.imgWidth2 }}; margin:0 auto; aspect-ratio:{{ p.imgRatio2 }}; border-radius:6px; background-image:url('{{ p.img2 }}'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
-                    </div>
+                      <div style="font-size:11px; color:#c9a99c; letter-spacing:0.08em; margin-top:6px;">タップで拡大</div>
+                    </a>
                   </sc-if>
                   <sc-if value="{{ p.hasNote2 }}" hint-placeholder-val="{{ false }}">
                     <div style="width:32px; height:1px; background:#d98b81; opacity:0.5; margin:14px auto 12px;"></div>
@@ -111,6 +113,22 @@
               <sc-if value="{{ p.hideA2 }}" hint-placeholder-val="{{ false }}">
                 <button onClick="{{ p.onRevealA2 }}" style="width:100%; border:none; cursor:pointer; font-family:inherit; background:#fffdf9; color:#d98b81; font-size:15px; font-weight:600; letter-spacing:0.08em; padding:14px; border-radius:14px; border:1px solid #e7c8c2; box-shadow:0 4px 10px rgba(215,139,129,0.14); transition:transform 0.12s ease, box-shadow 0.2s ease;" style-active="transform:scale(0.96);" style-hover="box-shadow:0 6px 14px rgba(215,139,129,0.22);">
                   {{ p.btn2 }}
+                </button>
+              </sc-if>
+
+              <sc-if value="{{ p.showF }}" hint-placeholder-val="{{ false }}">
+                <div style="animation:answerIn 0.45s ease both; background:#fffdf9; border:2px solid #e89e95; border-radius:14px; padding:18px 18px 16px; text-align:center; box-shadow:0 6px 16px rgba(232,158,149,0.18);">
+                  <div style="font-size:11px; font-weight:600; color:#e89e95; letter-spacing:0.16em; margin-bottom:10px;">FINAL ANSWER</div>
+                  <div style="font-size:30px; font-weight:700; color:#8a7468; letter-spacing:0.16em; line-height:1.5; white-space:pre-line;">{{ p.finalAnswer }}</div>
+                  <sc-if value="{{ p.hasFinalNote }}" hint-placeholder-val="{{ false }}">
+                    <div style="width:32px; height:1px; background:#e89e95; opacity:0.5; margin:14px auto 12px;"></div>
+                    <div style="font-size:14px; line-height:1.9; color:#7d695e; white-space:pre-line; text-align:left;">{{ p.finalNote }}</div>
+                  </sc-if>
+                </div>
+              </sc-if>
+              <sc-if value="{{ p.hideF }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ p.onRevealF }}" style="width:100%; border:none; cursor:pointer; font-family:inherit; background:#8a7468; color:#fffdf9; font-size:15px; font-weight:600; letter-spacing:0.08em; padding:14px; border-radius:14px; box-shadow:0 6px 14px rgba(138,116,104,0.28); transition:transform 0.12s ease, box-shadow 0.2s ease;" style-active="transform:scale(0.96);" style-hover="box-shadow:0 8px 18px rgba(138,116,104,0.36);">
+                  最終的な答えを見る
                 </button>
               </sc-if>
             </div>
@@ -142,23 +160,30 @@ class Component extends DCLogic {
     open: [true, true, true, true],
     a1: [false, false, false, false],
     a2: [false, false, false, false],
+    f: [false, false, false, false],
   };
 
   // answer: 大きく表示する答え / note: 解説（任意） / img: 解説画像（任意）
   // 2つ目の答え（tag2〜）は小問がある問題のみ指定
+  // finalAnswer / finalNote: 最終的なキーワード（任意）
   data = [
     {
       tag1: "1-1", btn1: "1-1 の答えを見る",
-      answer1: "（答え）",
-      note1: "（解説をここに記入）",
+      answer1: "こんやく",
+      img1: "img/a1-1.svg", imgRatio1: "480 / 215",
+      note1: "【？】に入るのは 矢印の方向に読むと二字熟語が4つできる漢字です\n左：結婚・求婚・婚礼・婚姻 →「婚」\n右：確約・誓約・約束・約分 →「約」\n2つを組み合わせると「婚約（こんやく）」\n4文字目の「く」がBに入ります",
       tag2: "1-2", btn2: "1-2 の答えを見る",
-      answer2: "（答え）",
-      note2: "（解説をここに記入）",
+      answer2: "にゅうせき",
+      img2: "img/a1-2.svg", imgRatio2: "470 / 230",
+      note2: "右の実線・波線は 左の図の枠線の一部を切り取ったものです\n図の中で同じ形の線が引かれている場所を探し その位置にある文字を読むと…\n①に ②ゅ ③う ④せ ⑤き →「入籍（にゅうせき）」\n1・2・3・5文字目がA・D・E・Cに入ります",
+      finalAnswer: "にくきゅう",
+      finalNote: "1-1・1-2の答えから A〜Eの文字を拾うと…\nA：に　B：く　C：き　D：ゅ　E：う\n→ キーワードは「にくきゅう」！",
     },
     {
       tag1: "", btn1: "答えを見る",
-      answer1: "（答え）",
-      note1: "（解説をここに記入）",
+      answer1: "またたび",
+      img1: "img/a2.svg", imgRatio1: "1438 / 782",
+      note1: "この図は 披露宴の席次表の配置と対応しています\n茶色の丸は参列者の席次表で名前が緑色の方の席だけを 緑色の丸に置き換えます\n緑の丸を上から順に線で結ぶと 線が通る文字は…\n①ま ②た ③た ④び →「またたび」\nキーワード「またたび」をLINE公式アカウントに送信してください",
     },
     {
       tag1: "", btn1: "答えを見る",
@@ -193,11 +218,13 @@ class Component extends DCLogic {
       const open = this.state.open[i];
       const a1 = this.state.a1[i];
       const a2 = this.state.a2[i];
+      const f = this.state.f[i];
       const hasSecond = !!d.answer2;
+      const hasFinal = !!d.finalAnswer;
       return {
         num: i + 1,
         label: "Question " + (i + 1),
-        bodyMax: open ? "1400px" : "0px",
+        bodyMax: open ? "2400px" : "0px",
         bodyOpacity: open ? 1 : 0,
         chevron: open ? "180deg" : "0deg",
         badgeBg: open ? "#e89e95" : "#f3e4de",
@@ -224,10 +251,16 @@ class Component extends DCLogic {
         hideA1: !a1,
         showA2: hasSecond && a2,
         hideA2: hasSecond && !a2,
-        allRevealed: a1 && (!hasSecond || a2),
+        finalAnswer: d.finalAnswer || "",
+        finalNote: d.finalNote || "",
+        hasFinalNote: !!d.finalNote,
+        showF: hasFinal && f,
+        hideF: hasFinal && !f,
+        allRevealed: a1 && (!hasSecond || a2) && (!hasFinal || f),
         onToggle: () => this.toggle(i),
         onRevealA1: () => this.reveal(i, "a1"),
         onRevealA2: () => this.reveal(i, "a2"),
+        onRevealF: () => this.reveal(i, "f"),
       };
     });
     return { puzzles };
