@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#f5efe6">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f5efe6"/>
+    <ellipse cx="600" cy="470" rx="135" ry="112" fill="#e7c8c2"/>
+    <ellipse cx="435" cy="290" rx="51" ry="66" fill="#e7c8c2"/>
+    <ellipse cx="555" cy="215" rx="51" ry="69" fill="#e7c8c2"/>
+    <ellipse cx="690" cy="230" rx="51" ry="68" fill="#e7c8c2"/>
+    <ellipse cx="795" cy="320" rx="48" ry="63" fill="#e7c8c2"/>
+    <circle cx="600" cy="640" r="14" fill="#e89e95"/>
+  </svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; padding: 0; }
+    body { background: #f5efe6; }
+    @keyframes answerIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes floatPaw {
+      0%, 100% { transform: translateY(0) rotate(-8deg); }
+      50% { transform: translateY(-4px) rotate(-8deg); }
+    }
+  </style>
+</helmet>
+
+<div style="min-height:100vh; background:#f5efe6; font-family:'Noto Serif JP', serif; color:#8a7468; padding:0 20px 64px; display:flex; flex-direction:column; align-items:center;">
+
+  <header style="width:100%; max-width:440px; text-align:center; padding:48px 0 28px; position:relative;">
+    <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:18px;">
+      <svg width="26" height="26" viewBox="0 0 40 40" style="opacity:0.55; animation:floatPaw 4s ease-in-out infinite;">
+        <ellipse cx="20" cy="26" rx="9" ry="7.5" fill="#e7c8c2"></ellipse>
+        <ellipse cx="9" cy="14" rx="3.4" ry="4.4" fill="#e7c8c2"></ellipse>
+        <ellipse cx="17" cy="9" rx="3.4" ry="4.6" fill="#e7c8c2"></ellipse>
+        <ellipse cx="26" cy="10" rx="3.4" ry="4.5" fill="#e7c8c2"></ellipse>
+        <ellipse cx="33" cy="16" rx="3.2" ry="4.2" fill="#e7c8c2"></ellipse>
+      </svg>
+      <div style="width:6px; height:6px; border-radius:50%; background:#e89e95;"></div>
+    </div>
+    <h1 style="margin:0; font-size:30px; font-weight:600; letter-spacing:0.08em; color:#8a7468;">Wedding謎解き答え</h1>
+    <div style="width:46px; height:1px; background:#e89e95; margin:18px auto 16px; opacity:0.6;"></div>
+    <p style="margin:0; font-size:14px; line-height:1.9; font-weight:400; color:#a89384; letter-spacing:0.03em;">ご参加ありがとうございました！<br>答え合わせをお楽しみください</p>
+  </header>
+
+  <main style="width:100%; max-width:440px; display:flex; flex-direction:column; gap:16px;">
+    <sc-for list="{{ puzzles }}" as="p" hint-placeholder-count="4">
+      <div style="background:#fffdf9; border:1px solid #ecdcd2; border-radius:20px; box-shadow:0 6px 20px rgba(138,116,104,0.08); overflow:hidden;">
+
+        <button onClick="{{ p.onToggle }}" style="width:100%; border:none; background:transparent; cursor:pointer; padding:20px 22px; display:flex; align-items:center; gap:16px; font-family:inherit; text-align:left;">
+          <span style="flex:0 0 auto; width:42px; height:42px; border-radius:50%; background:{{ p.badgeBg }}; color:{{ p.badgeColor }}; display:flex; align-items:center; justify-content:center; font-size:17px; font-weight:600; transition:all 0.3s ease;">{{ p.num }}</span>
+          <span style="flex:1 1 auto; font-size:19px; font-weight:600; color:#8a7468; letter-spacing:0.06em;">{{ p.label }}</span>
+          <span style="flex:0 0 auto; display:inline-flex; transition:transform 0.35s ease; transform:rotate({{ p.chevron }});">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a99c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </button>
+
+        <div style="max-height:{{ p.bodyMax }}; opacity:{{ p.bodyOpacity }}; overflow:hidden; transition:max-height 0.4s ease, opacity 0.4s ease;">
+          <div style="padding:2px 22px 24px;">
+            <div style="height:1px; background:#f0e3da; margin-bottom:18px;"></div>
+
+            <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:12px;">
+              <sc-if value="{{ p.showA1 }}" hint-placeholder-val="{{ false }}">
+                <div style="animation:answerIn 0.45s ease both; background:#faf1ee; border:1px solid #f0d9d2; border-radius:14px; padding:18px 18px 16px; text-align:center;">
+                  <div style="font-size:11px; font-weight:600; color:#e89e95; letter-spacing:0.16em; margin-bottom:10px;">ANSWER {{ p.tag1 }}</div>
+                  <div style="font-size:26px; font-weight:700; color:#8a7468; letter-spacing:0.12em; line-height:1.5; white-space:pre-line;">{{ p.answer1 }}</div>
+                  <sc-if value="{{ p.hasImg1 }}" hint-placeholder-val="{{ false }}">
+                    <div style="background:#fffdf9; border:1px solid #f0e0d8; border-radius:10px; padding:10px; margin-top:14px;">
+                      <div style="width:{{ p.imgWidth1 }}; margin:0 auto; aspect-ratio:{{ p.imgRatio1 }}; border-radius:6px; background-image:url('{{ p.img1 }}'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ p.hasNote1 }}" hint-placeholder-val="{{ false }}">
+                    <div style="width:32px; height:1px; background:#e89e95; opacity:0.5; margin:14px auto 12px;"></div>
+                    <div style="font-size:14px; line-height:1.9; color:#7d695e; white-space:pre-line; text-align:left;">{{ p.note1 }}</div>
+                  </sc-if>
+                </div>
+              </sc-if>
+              <sc-if value="{{ p.hideA1 }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ p.onRevealA1 }}" style="width:100%; border:none; cursor:pointer; font-family:inherit; background:#e89e95; color:#fffdf9; font-size:15px; font-weight:600; letter-spacing:0.08em; padding:14px; border-radius:14px; box-shadow:0 6px 14px rgba(232,158,149,0.32); transition:transform 0.12s ease, box-shadow 0.2s ease;" style-active="transform:scale(0.96); box-shadow:0 3px 8px rgba(232,158,149,0.28);" style-hover="box-shadow:0 8px 18px rgba(232,158,149,0.4);">
+                  {{ p.btn1 }}
+                </button>
+              </sc-if>
+
+              <sc-if value="{{ p.showA2 }}" hint-placeholder-val="{{ false }}">
+                <div style="animation:answerIn 0.45s ease both; background:#f6ece9; border:1px solid #ecd2cc; border-radius:14px; padding:18px 18px 16px; text-align:center;">
+                  <div style="font-size:11px; font-weight:600; color:#d98b81; letter-spacing:0.16em; margin-bottom:10px;">ANSWER {{ p.tag2 }}</div>
+                  <div style="font-size:26px; font-weight:700; color:#8a7468; letter-spacing:0.12em; line-height:1.5; white-space:pre-line;">{{ p.answer2 }}</div>
+                  <sc-if value="{{ p.hasImg2 }}" hint-placeholder-val="{{ false }}">
+                    <div style="background:#fffdf9; border:1px solid #f0e0d8; border-radius:10px; padding:10px; margin-top:14px;">
+                      <div style="width:{{ p.imgWidth2 }}; margin:0 auto; aspect-ratio:{{ p.imgRatio2 }}; border-radius:6px; background-image:url('{{ p.img2 }}'); background-size:contain; background-repeat:no-repeat; background-position:center;"></div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ p.hasNote2 }}" hint-placeholder-val="{{ false }}">
+                    <div style="width:32px; height:1px; background:#d98b81; opacity:0.5; margin:14px auto 12px;"></div>
+                    <div style="font-size:14px; line-height:1.9; color:#7d695e; white-space:pre-line; text-align:left;">{{ p.note2 }}</div>
+                  </sc-if>
+                </div>
+              </sc-if>
+              <sc-if value="{{ p.hideA2 }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ p.onRevealA2 }}" style="width:100%; border:none; cursor:pointer; font-family:inherit; background:#fffdf9; color:#d98b81; font-size:15px; font-weight:600; letter-spacing:0.08em; padding:14px; border-radius:14px; border:1px solid #e7c8c2; box-shadow:0 4px 10px rgba(215,139,129,0.14); transition:transform 0.12s ease, box-shadow 0.2s ease;" style-active="transform:scale(0.96);" style-hover="box-shadow:0 6px 14px rgba(215,139,129,0.22);">
+                  {{ p.btn2 }}
+                </button>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ p.allRevealed }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex; align-items:center; justify-content:center; gap:8px; padding-top:4px; color:#c9a99c; font-size:12px; letter-spacing:0.08em;">
+                <svg width="16" height="16" viewBox="0 0 40 40" style="opacity:0.7;"><ellipse cx="20" cy="26" rx="9" ry="7.5" fill="#e7c8c2"></ellipse><ellipse cx="9" cy="14" rx="3.4" ry="4.4" fill="#e7c8c2"></ellipse><ellipse cx="17" cy="9" rx="3.4" ry="4.6" fill="#e7c8c2"></ellipse><ellipse cx="26" cy="10" rx="3.4" ry="4.5" fill="#e7c8c2"></ellipse><ellipse cx="33" cy="16" rx="3.2" ry="4.2" fill="#e7c8c2"></ellipse></svg>
+                正解できましたか？
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </main>
+
+  <footer style="margin-top:40px; display:flex; flex-direction:column; align-items:center; gap:12px;">
+    <svg width="26" height="24" viewBox="0 0 26 24" style="opacity:0.55;">
+      <path d="M13 22 C13 22 1.5 14.6 1.5 7.9 C1.5 4.1 4.4 1.5 7.7 1.5 C10.1 1.5 11.9 2.9 13 4.7 C14.1 2.9 15.9 1.5 18.3 1.5 C21.6 1.5 24.5 4.1 24.5 7.9 C24.5 14.6 13 22 13 22 Z" fill="#e89e95"></path>
+    </svg>
+    <div style="font-size:13px; color:#a89384; letter-spacing:0.06em;">最後まで遊んでくれてありがとう！</div>
+    <div style="font-size:11px; color:#c9b3a6; letter-spacing:0.16em;">Wedding Mystery</div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    open: [true, true, true, true],
+    a1: [false, false, false, false],
+    a2: [false, false, false, false],
+  };
+
+  // answer: 大きく表示する答え / note: 解説（任意） / img: 解説画像（任意）
+  // 2つ目の答え（tag2〜）は小問がある問題のみ指定
+  data = [
+    {
+      tag1: "1-1", btn1: "1-1 の答えを見る",
+      answer1: "（答え）",
+      note1: "（解説をここに記入）",
+      tag2: "1-2", btn2: "1-2 の答えを見る",
+      answer2: "（答え）",
+      note2: "（解説をここに記入）",
+    },
+    {
+      tag1: "", btn1: "答えを見る",
+      answer1: "（答え）",
+      note1: "（解説をここに記入）",
+    },
+    {
+      tag1: "", btn1: "答えを見る",
+      answer1: "（答え）",
+      note1: "（解説をここに記入）",
+    },
+    {
+      tag1: "", btn1: "答えを見る",
+      answer1: "（答え）",
+      note1: "（解説をここに記入）",
+    },
+  ];
+
+  toggle(i) {
+    this.setState(s => {
+      const open = [...s.open];
+      open[i] = !open[i];
+      return { open };
+    });
+  }
+
+  reveal(i, which) {
+    this.setState(s => {
+      const arr = [...s[which]];
+      arr[i] = true;
+      return { [which]: arr };
+    });
+  }
+
+  renderVals() {
+    const puzzles = this.data.map((d, i) => {
+      const open = this.state.open[i];
+      const a1 = this.state.a1[i];
+      const a2 = this.state.a2[i];
+      const hasSecond = !!d.answer2;
+      return {
+        num: i + 1,
+        label: "Question " + (i + 1),
+        bodyMax: open ? "1400px" : "0px",
+        bodyOpacity: open ? 1 : 0,
+        chevron: open ? "180deg" : "0deg",
+        badgeBg: open ? "#e89e95" : "#f3e4de",
+        badgeColor: open ? "#fffdf9" : "#c89488",
+        tag1: d.tag1,
+        tag2: d.tag2 || "",
+        btn1: d.btn1,
+        btn2: d.btn2 || "",
+        answer1: d.answer1,
+        answer2: d.answer2 || "",
+        note1: d.note1 || "",
+        hasNote1: !!d.note1,
+        note2: d.note2 || "",
+        hasNote2: !!d.note2,
+        img1: d.img1 || "",
+        hasImg1: !!d.img1,
+        img2: d.img2 || "",
+        hasImg2: !!d.img2,
+        imgRatio1: d.imgRatio1 || "1 / 1",
+        imgWidth1: d.imgWidth1 || "100%",
+        imgRatio2: d.imgRatio2 || "1 / 1",
+        imgWidth2: d.imgWidth2 || "100%",
+        showA1: a1,
+        hideA1: !a1,
+        showA2: hasSecond && a2,
+        hideA2: hasSecond && !a2,
+        allRevealed: a1 && (!hasSecond || a2),
+        onToggle: () => this.toggle(i),
+        onRevealA1: () => this.reveal(i, "a1"),
+        onRevealA2: () => this.reveal(i, "a2"),
+      };
+    });
+    return { puzzles };
+  }
+}
+</script>
+</body>
+</html>
